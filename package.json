@@ -1,0 +1,26 @@
+{
+  "name": "maxfundraiser-smart-contract",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test",
+    "hardhat:node": "npx hardhat node",
+    "deploy:local": "npx hardhat run scripts/deploy.ts --network localhost",
+    "deploy:sepolia": "npx hardhat run scripts/deploy.ts --network sepolia",
+    "compile": "npx hardhat compile",
+    "report": "npx solhint \"contracts/**/*.sol\" --formatter json > solhint-report.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "eslint": "^9.14.0",
+    "hardhat": "^2.22.12",
+    "prettier": "^3.3.3",
+    "solhint": "^5.0.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}

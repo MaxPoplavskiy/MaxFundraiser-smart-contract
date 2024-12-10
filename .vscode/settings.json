@@ -1,0 +1,35 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "prettier.useTabs": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/.vscode": true,
+    "**/__pycache__": true
+  },
+  "solidity.linter": "solhint",
+  "solidity.solhintConfig": ".solhint.json",
+  "eslint.validate": ["javascript"],
+  "cSpell.words": [
+    "favourite",
+    "fundraisings",
+    "gridlines",
+    "iban",
+    "Licence",
+    "nonselected",
+    "stablecoins",
+    "upvote",
+    "wagmi"
+  ],
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
