@@ -72,28 +72,28 @@ contract Fundraiser {
 
     modifier onlyAdmin() {
         if (msg.sender != administrationContract.administrator()) {
-            revert NotAdmin();  // Use custom error
+            revert NotAdmin();
         }
         _;
     }
 
     modifier notBlocked() {
         if (administrationContract.userStatus(msg.sender) == UserStatus.Blocked) {
-            revert UserBlocked();  // Use custom error
+            revert UserBlocked();
         }
         _;
     }
 
     modifier onlyBeforeDeadline() {
         if (block.timestamp > deadline) {
-            revert DeadlinePassed();  // Use custom error
+            revert DeadlinePassed();
         }
         _;
     }
 
     modifier onlyBeneficiary() {
         if (msg.sender != beneficiary) {
-            revert NotBeneficiary();  // Use custom error
+            revert NotBeneficiary();
         }
         _;
     }

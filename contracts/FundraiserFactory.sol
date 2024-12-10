@@ -20,7 +20,7 @@ contract FundraiserFactory {
 
     modifier onlyUnblocked() {
         if (administration.userStatus(msg.sender) == UserStatus.Blocked) {
-            revert UserBlocked();  // Use custom error if the user is blocked
+            revert UserBlocked();
         }
         _;
     }

@@ -27,7 +27,7 @@ describe("Administration", function () {
         await user1.getAddress()
       );
       expect(request.comment).to.equal(comment);
-      expect(request.status).to.equal(0); // PENDING
+      expect(request.status).to.equal(0);
     });
 
     it("should revert if a request is already sent by the user", async function () {
@@ -46,11 +46,11 @@ describe("Administration", function () {
       let userStatus = await administration.userStatus(
         await user1.getAddress()
       );
-      expect(userStatus).to.equal(1); // Blocked
+      expect(userStatus).to.equal(1);
 
       await administration.connect(admin).unblockUser(await user1.getAddress());
       userStatus = await administration.userStatus(await user1.getAddress());
-      expect(userStatus).to.equal(0); // Active
+      expect(userStatus).to.equal(0);
     });
   });
 
@@ -63,7 +63,7 @@ describe("Administration", function () {
       const userStatus = await administration.userStatus(
         await user1.getAddress()
       );
-      expect(userStatus).to.equal(2); // Benefactor
+      expect(userStatus).to.equal(2);
     });
   });
 
@@ -77,7 +77,7 @@ describe("Administration", function () {
       const request = await administration.isBenefactorRequestSent(
         await user1.getAddress()
       );
-      expect(request.status).to.equal(2); // DECLINED
+      expect(request.status).to.equal(2);
       expect(request.declineReason).to.equal(reason);
     });
   });
@@ -111,10 +111,8 @@ describe("FundraiserFactory", function () {
   let initialBlockTimestamp: number;
 
   beforeEach(async function () {
-    // Get signers
     [admin, user1, user2] = await ethers.getSigners();
 
-    // Deploy UserStatus, Administration, and FundraiserFactory contracts
     const Administration = await ethers.getContractFactory("Administration");
     const FundraiserFactory =
       await ethers.getContractFactory("FundraiserFactory");
@@ -160,7 +158,6 @@ describe("FundraiserFactory", function () {
       const description = "A fundraising campaign for a good cause";
       const uri = "https://example.com/charity";
 
-      // Block user
       await administration.connect(admin).blockUser(await user2.getAddress());
 
       await expect(
@@ -202,7 +199,6 @@ describe("FundraiserFactory", function () {
       const finalFundraiserCount = await fundraiserFactory.getFundraiserCount();
       expect(finalFundraiserCount).to.equal(initialFundraiserCount + BigInt(1));
 
-      // Check if the fundraiser is stored in the fundraisers array
       const fundraisers = await fundraiserFactory.getFundraisers();
       expect(fundraisers.length).to.equal(finalFundraiserCount);
     });
@@ -282,16 +278,13 @@ describe("Fundraiser", function () {
   let initialBlockTimestamp: number;
 
   beforeEach(async function () {
-    // Get signers
     [admin, user1, user2, beneficiary] = await ethers.getSigners();
 
-    // Deploy UserStatus, Administration, and Fundraiser contracts
     const Administration = await ethers.getContractFactory("Administration");
     const Fundraiser = await ethers.getContractFactory("Fundraiser");
 
     administration = await Administration.deploy();
 
-    // Deploy Fundraiser contract with necessary parameters
     const goal = parseEther("100");
     const durationInDays = 30;
     const title = "Fundraiser for Charity";
@@ -455,7 +448,7 @@ describe("Fundraiser", function () {
         .connect(user1)
         .donate("Donation under goal", { value: donationAmount });
 
-      await ethers.provider.send("evm_increaseTime", [31 * 24 * 60 * 60]); // Increase time to pass the deadline
+      await ethers.provider.send("evm_increaseTime", [31 * 24 * 60 * 60]);
       await ethers.provider.send("evm_mine", []);
 
       await expect(
@@ -475,7 +468,7 @@ describe("Fundraiser", function () {
     });
 
     it("should allow users to remove their upvote", async function () {
-      await fundraiser.connect(user1).toggleUpvote(); // Upvote first time
+      await fundraiser.connect(user1).toggleUpvote();
       await expect(fundraiser.connect(user1).toggleUpvote())
         .to.emit(fundraiser, "UpvoteToggled")
         .withArgs(await user1.getAddress(), false);
